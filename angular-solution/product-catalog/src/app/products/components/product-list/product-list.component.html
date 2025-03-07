@@ -1,0 +1,25 @@
+<div class="container">
+  <input type="text" [formControl]="searchControl" placeholder="Search products..." />
+
+  <select [formControl]="categoryControl">
+    <option value="">All Categories</option>
+    <option *ngFor="let category of categories" [value]="category">{{ category }}</option>
+  </select>
+
+  <input type="number" [formControl]="minPriceControl" placeholder="Min Price" />
+  <input type="number" [formControl]="maxPriceControl" placeholder="Max Price" />
+
+  <!-- Show loader when data is being fetched -->
+  <div *ngIf="loading" class="loading-spinner">
+    Loading products...
+  </div>
+
+  <div class="products" *ngIf="!loading">
+    <div *ngFor="let product of filteredProducts" class="product-card">
+      <h3>{{ product.title }}</h3>
+      <p>Category: {{ product.category }}</p>
+      <p>Price: ${{ product.price }}</p>
+      <button mat-button color="primary" (click)="editProduct(product)">Edit</button>
+    </div>
+  </div>
+</div>
